@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Ventas | BeautyManager</title>
+
+    <link rel="stylesheet" href="css/style.css">
+<style>
+    /* =========================================
+       TAMAÑO DEL TEXTO - HISTORIAL VENTAS
+       ========================================= */
+
+    #listaVentas .venta-item-info h3 {
+        font-size: 16px !important;
+        line-height: 1.3 !important;
+    }
+
+    #listaVentas .venta-item-info p {
+        font-size: 12px !important;
+        line-height: 1.35 !important;
+    }
+
+    #listaVentas .venta-cantidad,
+    #listaVentas .venta-metodo {
+        font-size: 11px !important;
+    }
+
+    #listaVentas .venta-item-detalles strong {
+        font-size: 14px !important;
+    }
+
+    #listaVentas .btn-eliminar-venta {
+        font-size: 11px !important;
+    }
+
+    #listaVentas .venta-item-icon {
+        width: 33px !important;
+        height: 33px !important;
+        flex-basis: 33px !important;
+        font-size: 14px !important;
+    }
+</style>
+    <script>
+        const bmTema = localStorage.getItem("beautymanager-tema") || "morado";
+        document.documentElement.setAttribute("data-tema", bmTema);
+    </script>
+
+
+    <script>
+        if (localStorage.getItem("beautymanager-modo") === "oscuro") {
+            document.documentElement.classList.add("modo-oscuro");
+        }
+    </script>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================================
+         ESTRUCTURA PRINCIPAL
+         ========================================= -->
+
+    <div class="app">
+
+
+        <!-- =====================================
+             SIDEBAR
+             ===================================== -->
+
+        <aside class="sidebar">
+            <div class="logo">
+                BeautyManager
+            </div>
+
+            <nav>
+                <a href="dashboard.html" class="menu-item ">🏠 Inicio</a>
+                <a href="productos.html" class="menu-item ">📦 Productos</a>
+                <a href="clientes.html" class="menu-item ">👥 Clientes</a>
+                <a href="pedidos.html" class="menu-item ">🛍️ Pedidos</a>
+                <a href="ventas.html" class="menu-item active">💰 Ventas</a>
+                <a href="estadisticas.html" class="menu-item ">📊 Estadísticas</a>
+                <a href="configuracion.html" class="menu-item ">⚙️ Configuración</a>
+            </nav>
+
+            <div class="sidebar-bottom">
+                <button id="cerrarSesion" class="logout" type="button">🚪 Cerrar sesión</button>
+            </div>
+        </aside>
+
+
+
+        <!-- =====================================
+             CONTENIDO
+             ===================================== -->
+
+        <main class="main-content">
+
+
+            <!-- TOPBAR -->
+
+            <header class="ventas-topbar">
+
+                <div>
+
+                    <span class="small-text">
+                        Gestión de ventas
+                    </span>
+
+                    <h1>
+                        Mis ventas 💰
+                    </h1>
+
+                </div>
+
+
+                <div
+                    class="user-circle"
+                    id="usuarioInicial"
+                >
+                    U
+                </div>
+
+            </header>
+
+
+
+            <!-- =================================
+                 RESUMEN
+                 ================================= -->
+
+            <section class="ventas-resumen">
+
+
+                <div class="venta-stat-card">
+
+                    <div class="venta-stat-icon">
+                        💰
+                    </div>
+
+                    <div>
+
+                        <p>
+                            Total vendido
+                        </p>
+
+                        <h2 id="totalVendido">
+                            $0
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+                <div class="venta-stat-card">
+
+                    <div class="venta-stat-icon">
+                        🧾
+                    </div>
+
+                    <div>
+
+                        <p>
+                            Ventas registradas
+                        </p>
+
+                        <h2 id="cantidadVentas">
+                            0
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+                <div class="venta-stat-card">
+
+                    <div class="venta-stat-icon">
+                        📈
+                    </div>
+
+                    <div>
+
+                        <p>
+                            Promedio por venta
+                        </p>
+
+                        <h2 id="promedioVenta">
+                            $0
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+            </section>
+
+
+
+            <!-- =================================
+                 REGISTRAR VENTA
+                 ================================= -->
+
+            <section class="venta-card">
+
+
+                <div class="venta-card-header">
+
+                    <div>
+
+                        <h2>
+                            Registrar venta
+                        </h2>
+
+                        <p>
+                            Registra una nueva venta de tu negocio.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <form id="ventaForm">
+
+
+                    <div class="ventas-form-grid">
+
+
+                        <!-- CLIENTE -->
+
+                        <div class="venta-form-group">
+
+                            <label for="clienteVenta">
+                                Cliente
+                            </label>
+
+                            <select
+                                id="clienteVenta"
+                                required
+                            >
+
+                                <option value="">
+                                    Selecciona un cliente
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+
+                        <!-- PRODUCTO -->
+
+                        <div class="venta-form-group">
+
+                            <label for="productoVenta">
+                                Producto
+                            </label>
+
+                            <select
+                                id="productoVenta"
+                                required
+                            >
+
+                                <option value="">
+                                    Selecciona un producto
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+
+                        <!-- CANTIDAD -->
+
+                        <div class="venta-form-group">
+
+                            <label for="cantidadVenta">
+                                Cantidad
+                            </label>
+
+                            <input
+                                type="number"
+                                id="cantidadVenta"
+                                min="1"
+                                value="1"
+                                required
+                            >
+
+                            <small id="stockDisponible">
+                                Selecciona un producto
+                            </small>
+
+                        </div>
+
+
+
+                        <!-- MÉTODO DE PAGO -->
+
+                        <div class="venta-form-group">
+
+                            <label for="metodoPago">
+                                Método de pago
+                            </label>
+
+                            <select
+                                id="metodoPago"
+                                required
+                            >
+
+                                <option value="Efectivo">
+                                    Efectivo
+                                </option>
+
+                                <option value="Transferencia">
+                                    Transferencia
+                                </option>
+
+                                <option value="Tarjeta">
+                                    Tarjeta
+                                </option>
+
+                                <option value="Nequi">
+                                    Nequi
+                                </option>
+
+                                <option value="Daviplata">
+                                    Daviplata
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <!-- PRECIO Y TOTAL -->
+
+                    <div class="venta-total-box">
+
+
+                        <div>
+
+                            <span>
+                                Precio unitario
+                            </span>
+
+                            <strong id="precioVenta">
+                                $0
+                            </strong>
+
+                        </div>
+
+
+                        <div class="venta-total-divider"></div>
+
+
+                        <div>
+
+                            <span>
+                                Total de la venta
+                            </span>
+
+                            <strong id="totalVenta">
+                                $0
+                            </strong>
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <button
+                        type="submit"
+                        class="btn-principal venta-submit"
+                    >
+                        + Registrar venta
+                    </button>
+
+
+                    <p id="ventaMensaje"></p>
+
+
+                </form>
+
+
+            </section>
+
+
+
+            <!-- =================================
+                 HISTORIAL DE VENTAS
+                 ================================= -->
+
+            <section class="venta-card">
+
+
+                <div class="ventas-lista-header">
+
+
+                    <div>
+
+                        <h2>
+                            Historial de ventas
+                        </h2>
+
+                        <p>
+                            Consulta las ventas registradas en tu negocio.
+                        </p>
+
+                    </div>
+
+
+                    <input
+                        type="text"
+                        id="buscarVenta"
+                        class="ventas-buscador"
+                        placeholder="🔎 Buscar venta..."
+                    >
+
+
+                </div>
+
+
+
+                <!-- FILTROS -->
+
+                <div class="ventas-filtros">
+
+
+                    <div>
+
+                        <label for="filtroMetodo">
+                            Método de pago
+                        </label>
+
+                        <select id="filtroMetodo">
+
+                            <option value="Todos">
+                                Todos
+                            </option>
+
+                            <option value="Efectivo">
+                                Efectivo
+                            </option>
+
+                            <option value="Transferencia">
+                                Transferencia
+                            </option>
+
+                            <option value="Tarjeta">
+                                Tarjeta
+                            </option>
+
+                            <option value="Nequi">
+                                Nequi
+                            </option>
+
+                            <option value="Daviplata">
+                                Daviplata
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- LISTA -->
+
+                <div id="listaVentas">
+
+                    Cargando ventas...
+
+                </div>
+
+
+            </section>
+
+
+        </main>
+
+
+    </div>
+
+
+
+    <script
+        type="module"
+        src="js/ventas.js"
+    ></script>
+
+
+    <script src="js/tema.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Estadísticas | BeautyManager</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <script>
+        const bmTema = localStorage.getItem("beautymanager-tema") || "morado";
+        document.documentElement.setAttribute("data-tema", bmTema);
+    </script>
+
+
+    <script>
+        if (localStorage.getItem("beautymanager-modo") === "oscuro") {
+            document.documentElement.classList.add("modo-oscuro");
+        }
+    </script>
+
+</head>
+
+
+<body>
+
+
+    <div class="app">
+
+
+        <!-- =====================================
+             SIDEBAR
+             ===================================== -->
+
+        <aside class="sidebar">
+            <div class="logo">
+                BeautyManager
+            </div>
+
+            <nav>
+                <a href="dashboard.html" class="menu-item ">🏠 Inicio</a>
+                <a href="productos.html" class="menu-item ">📦 Productos</a>
+                <a href="clientes.html" class="menu-item ">👥 Clientes</a>
+                <a href="pedidos.html" class="menu-item ">🛍️ Pedidos</a>
+                <a href="ventas.html" class="menu-item ">💰 Ventas</a>
+                <a href="estadisticas.html" class="menu-item active">📊 Estadísticas</a>
+                <a href="configuracion.html" class="menu-item ">⚙️ Configuración</a>
+            </nav>
+
+            <div class="sidebar-bottom">
+                <button id="cerrarSesion" class="logout" type="button">🚪 Cerrar sesión</button>
+            </div>
+        </aside>
+
+
+
+        <!-- =====================================
+             CONTENIDO
+             ===================================== -->
+
+        <main class="main-content">
+
+
+            <!-- TOPBAR -->
+
+            <header class="estadisticas-topbar">
+
+                <div>
+
+                    <span class="small-text">
+                        Análisis de tu negocio
+                    </span>
+
+                    <h1>
+                        Estadísticas 📊
+                    </h1>
+
+                </div>
+
+
+                <div
+                    class="user-circle"
+                    id="usuarioInicial"
+                >
+                    U
+                </div>
+
+            </header>
+
+
+
+            <!-- =================================
+                 RESUMEN GENERAL
+                 ================================= -->
+
+            <section class="estadisticas-resumen">
+
+
+                <div class="estadistica-card">
+
+                    <div class="estadistica-icon">
+                        💰
+                    </div>
+
+                    <div>
+
+                        <p>
+                            Ventas totales
+                        </p>
+
+                        <h2 id="estadisticaVentas">
+                            $0
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="estadistica-card">
+
+                    <div class="estadistica-icon">
+                        🧾
+                    </div>
+
+                    <div>
+
+                        <p>
+                            Número de ventas
+                        </p>
+
+                        <h2 id="estadisticaCantidadVentas">
+                            0
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="estadistica-card">
+
+                    <div class="estadistica-icon">
+                        📦
+                    </div>
+
+                    <div>
+
+                        <p>
+                            Productos vendidos
+                        </p>
+
+                        <h2 id="estadisticaProductos">
+                            0
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="estadistica-card">
+
+                    <div class="estadistica-icon">
+                        👥
+                    </div>
+
+                    <div>
+
+                        <p>
+                            Clientes
+                        </p>
+
+                        <h2 id="estadisticaClientes">
+                            0
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+            </section>
+
+
+
+            <!-- =================================
+                 VENTAS RECIENTES
+                 ================================= -->
+
+            <section class="estadistica-card-grande">
+
+
+                <div class="estadistica-card-header">
+
+                    <div>
+
+                        <h2>
+                            Ventas de los últimos 7 días
+                        </h2>
+
+                        <p>
+                            Observa cómo se han comportado tus ventas recientemente.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="grafico-ventas">
+
+                    <div
+                        id="graficoVentas"
+                        class="grafico-barras"
+                    >
+                    </div>
+
+                </div>
+
+
+            </section>
+
+
+
+            <!-- =================================
+                 DOS COLUMNAS
+                 ================================= -->
+
+            <section class="estadisticas-grid">
+
+
+                <!-- PRODUCTOS MÁS VENDIDOS -->
+
+                <div class="estadistica-card-grande">
+
+
+                    <div class="estadistica-card-header">
+
+                        <div>
+
+                            <h2>
+                                Productos más vendidos 🏆
+                            </h2>
+
+                            <p>
+                                Los productos con mayor cantidad de ventas.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div id="productosMasVendidos">
+
+                        Cargando información...
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- MÉTODOS DE PAGO -->
+
+                <div class="estadistica-card-grande">
+
+
+                    <div class="estadistica-card-header">
+
+                        <div>
+
+                            <h2>
+                                Métodos de pago 💳
+                            </h2>
+
+                            <p>
+                                Distribución de tus ventas.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div id="metodosPagoEstadistica">
+
+                        Cargando información...
+
+                    </div>
+
+
+                </div>
+
+
+            </section>
+
+
+
+            <!-- =================================
+                 STOCK BAJO
+                 ================================= -->
+
+            <section class="estadistica-card-grande">
+
+
+                <div class="estadistica-card-header">
+
+                    <div>
+
+                        <h2>
+                            Productos con stock bajo ⚠️
+                        </h2>
+
+                        <p>
+                            Productos que deberías considerar reponer.
+                        </p>
+
+                    </div>
+
+
+                    <a
+                        href="productos.html"
+                        class="estadistica-link"
+                    >
+                        Ver productos
+                    </a>
+
+                </div>
+
+
+                <div id="productosStockBajo">
+
+                    Cargando información...
+
+                </div>
+
+
+            </section>
+
+
+        </main>
+
+
+    </div>
+
+
+
+    <script
+        type="module"
+        src="js/estadisticas.js"
+    ></script>
+
+
+    <script src="js/tema.js"></script>
+
+</body>
+
+</html>

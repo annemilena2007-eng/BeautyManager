@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Iniciar sesión | BeautyManager</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <script>
+       const bmTema = "morado";
+
+document.documentElement.setAttribute(
+    "data-tema",
+    bmTema
+);
+    </script>
+</head>
+
+<body class="login-page">
+
+    <main>
+
+        <h1>BeautyManager</h1>
+        <h2>Iniciar sesión</h2>
+
+        <form id="loginForm">
+
+            <label for="loginCorreo">Correo electrónico</label>
+            <input
+                type="email"
+                id="loginCorreo"
+                required
+            >
+
+            <label for="loginPassword">Contraseña</label>
+            <input
+                type="password"
+                id="loginPassword"
+                required
+            >
+
+            <p>
+                <a href="#" id="recuperarPassword">
+                    ¿Olvidaste tu contraseña?
+                </a>
+            </p>
+
+            <p id="loginMensaje"></p>
+
+            <button type="submit">
+                Iniciar sesión
+            </button>
+
+        </form>
+
+        <p>
+            ¿No tienes una cuenta?
+            <a href="registro.html">Crear cuenta</a>
+        </p>
+
+    </main>
+
+    <script src="js/tema.js"></script>
+    <script type="module" src="js/auth.js"></script>
+
+</body>
+
+</html>

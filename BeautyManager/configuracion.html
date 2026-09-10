@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Configuración | BeautyManager</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <script>
+    const usuario =
+        localStorage.getItem("beautymanager-usuario");
+
+    const claveTema = usuario
+        ? `beautymanager-tema-${usuario}`
+        : "beautymanager-tema";
+
+    const claveModo = usuario
+        ? `beautymanager-modo-${usuario}`
+        : "beautymanager-modo";
+
+
+    const bmTema =
+        localStorage.getItem(claveTema) || "morado";
+
+    const bmModo =
+        localStorage.getItem(claveModo) || "claro";
+
+
+    document.documentElement.setAttribute(
+        "data-tema",
+        bmTema
+    );
+
+
+    if (bmModo === "oscuro") {
+
+        document.documentElement.classList.add(
+            "modo-oscuro"
+        );
+
+    } else {
+
+        document.documentElement.classList.remove(
+            "modo-oscuro"
+        );
+
+    }
+</script>
+</head>
+
+<body>
+
+    <div class="app">
+
+        <!-- ================= SIDEBAR ================= -->
+
+        <aside class="sidebar">
+            <div class="logo">
+                BeautyManager
+            </div>
+
+            <nav>
+                <a href="dashboard.html" class="menu-item ">🏠 Inicio</a>
+                <a href="productos.html" class="menu-item ">📦 Productos</a>
+                <a href="clientes.html" class="menu-item ">👥 Clientes</a>
+                <a href="pedidos.html" class="menu-item ">🛍️ Pedidos</a>
+                <a href="ventas.html" class="menu-item ">💰 Ventas</a>
+                <a href="estadisticas.html" class="menu-item ">📊 Estadísticas</a>
+                <a href="configuracion.html" class="menu-item active">⚙️ Configuración</a>
+            </nav>
+
+            <div class="sidebar-bottom">
+                <button id="cerrarSesion" class="logout" type="button">🚪 Cerrar sesión</button>
+            </div>
+        </aside>
+
+
+        <!-- ================= CONTENIDO ================= -->
+
+        <main class="main-content configuracion-page">
+
+            <!-- TOPBAR -->
+
+            <header class="configuracion-topbar">
+
+                <div>
+                    <h1>Configuración</h1>
+
+                    <p>
+                        Administra tu cuenta y la información de tu negocio.
+                    </p>
+                </div>
+
+
+                <div
+                    class="user-circle"
+                    id="usuarioInicial">
+                    U
+                </div>
+
+            </header>
+
+
+            <!-- ================= DATOS DEL NEGOCIO ================= -->
+
+            <section class="config-section">
+
+                <div class="config-section-header">
+
+                    <div class="config-section-icon">
+                        🏪
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            Datos del negocio
+                        </h2>
+
+                        <p>
+                            Administra la información de tu negocio.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <form id="formNegocio" class="config-form">
+
+                    <div class="config-grid">
+
+                        <div class="form-group">
+
+                            <label for="nombreNegocio">
+                                Nombre del negocio
+                            </label>
+
+                            <input
+                                type="text"
+                                id="nombreNegocio"
+                                placeholder="Ej. Beauty Store"
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="nombrePropietario">
+                                Nombre del propietario
+                            </label>
+
+                            <input
+                                type="text"
+                                id="nombrePropietario"
+                                placeholder="Tu nombre"
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="telefonoNegocio">
+                                Teléfono
+                            </label>
+
+                            <input
+                                type="tel"
+                                id="telefonoNegocio"
+                                placeholder="Ej. 300 123 4567"
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="correoNegocio">
+                                Correo electrónico
+                            </label>
+
+                            <input
+                                type="email"
+                                id="correoNegocio"
+                                placeholder="correo@ejemplo.com"
+                            >
+
+                        </div>
+
+
+                        <div class="form-group config-full">
+
+                            <label for="direccionNegocio">
+                                Dirección
+                            </label>
+
+                            <input
+                                type="text"
+                                id="direccionNegocio"
+                                placeholder="Dirección del negocio"
+                            >
+
+                        </div>
+
+
+                        <div class="form-group config-full">
+
+                            <label for="descripcionNegocio">
+                                Descripción del negocio
+                            </label>
+
+                            <textarea
+                                id="descripcionNegocio"
+                                rows="4"
+                                placeholder="Describe brevemente tu negocio..."
+                            ></textarea>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="config-actions">
+
+                        <button
+                            type="submit"
+                            class="btn-config-principal">
+
+                            Guardar cambios
+
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </section>
+
+
+            <!-- ================= APARIENCIA ================= -->
+
+            <section class="config-section">
+
+                <div class="config-section-header">
+
+                    <div class="config-section-icon">
+                        🎨
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            Apariencia
+                        </h2>
+
+                        <p>
+                            Personaliza cómo quieres ver BeautyManager.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="apariencia-box">
+
+                    <div class="apariencia-info">
+
+                        <div class="apariencia-icon">
+                            🌙
+                        </div>
+
+                        <div>
+
+                            <h3>
+                                Modo oscuro
+                            </h3>
+
+                            <p>
+                                Utiliza una apariencia oscura en todo el sistema.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <label class="switch">
+
+                        <input
+                            type="checkbox"
+                            id="modoOscuro"
+                        >
+
+                        <span class="slider"></span>
+
+                    </label>
+
+                </div>
+
+                <div class="temas-colores">
+                    <h3>Color de la interfaz</h3>
+                    <p>Elige el color pastel que prefieras para BeautyManager.</p>
+
+                    <div class="temas-opciones">
+                        <button type="button" class="tema-opcion tema-morado" data-tema="morado">
+                            <span class="tema-muestra"></span>
+                            Morado
+                        </button>
+                        <button type="button" class="tema-opcion tema-rosado" data-tema="rosado">
+                            <span class="tema-muestra"></span>
+                            Rosado
+                        </button>
+                        <button type="button" class="tema-opcion tema-azul" data-tema="azul">
+                            <span class="tema-muestra"></span>
+                            Azul
+                        </button>
+                    </div>
+                </div>
+
+            </section>
+
+
+            <!-- ================= SEGURIDAD ================= -->
+
+            <section class="config-section">
+
+                <div class="config-section-header">
+
+                    <div class="config-section-icon">
+                        🔐
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            Seguridad
+                        </h2>
+
+                        <p>
+                            Administra la contraseña de tu cuenta.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <form id="formPassword" class="config-form">
+
+                    <div class="config-grid">
+
+
+                        <div class="form-group config-full">
+
+                            <label for="passwordActual">
+                                Contraseña actual
+                            </label>
+
+                            <div class="password-wrapper">
+
+                                <input
+                                    type="password"
+                                    id="passwordActual"
+                                    placeholder="Contraseña actual"
+                                >
+
+                                <button
+                                    type="button"
+                                    class="mostrar-password"
+                                    data-target="passwordActual">
+                                    👁️
+                                </button>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="nuevaPassword">
+                                Nueva contraseña
+                            </label>
+
+                            <div class="password-wrapper">
+
+                                <input
+                                    type="password"
+                                    id="nuevaPassword"
+                                    placeholder="Nueva contraseña"
+                                >
+
+                                <button
+                                    type="button"
+                                    class="mostrar-password"
+                                    data-target="nuevaPassword">
+                                    👁️
+                                </button>
+
+                            </div>
+
+
+                            <div class="password-strength">
+
+                                <div class="strength-bar">
+                                    <span id="strengthProgress"></span>
+                                </div>
+
+                                <small id="strengthText">
+                                    Ingresa una contraseña
+                                </small>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="confirmarPassword">
+                                Confirmar contraseña
+                            </label>
+
+                            <div class="password-wrapper">
+
+                                <input
+                                    type="password"
+                                    id="confirmarPassword"
+                                    placeholder="Repite la contraseña"
+                                >
+
+                                <button
+                                    type="button"
+                                    class="mostrar-password"
+                                    data-target="confirmarPassword">
+                                    👁️
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="config-actions">
+
+                        <button
+                            type="submit"
+                            class="btn-config-principal">
+
+                            Cambiar contraseña
+
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </section>
+
+
+            <!-- ================= CUENTA ================= -->
+
+            <section class="config-section">
+
+                <div class="config-section-header">
+
+                    <div class="config-section-icon">
+                        👤
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            Cuenta
+                        </h2>
+
+                        <p>
+                            Administra la información de acceso.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="cuenta-info">
+
+                    <div class="cuenta-item">
+
+                        <span class="cuenta-label">
+                            Correo de la cuenta
+                        </span>
+
+                        <strong id="correoCuenta">
+                            Cargando...
+                        </strong>
+
+                    </div>
+
+
+                    <div class="cuenta-item">
+
+                        <span class="cuenta-label">
+                            Estado
+                        </span>
+
+                        <span class="estado-cuenta">
+                            ● Cuenta activa
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="cuenta-actions">
+
+                    <button
+                        type="button"
+                        id="cambiarCuenta"
+                        class="btn-config-secundario">
+
+                        🔄 Cambiar de cuenta
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        id="cerrarSesionCuenta"
+                        class="btn-config-secundario">
+
+                        🚪 Cerrar sesión
+
+                    </button>
+
+                </div>
+
+            </section>
+
+            <footer class="config-footer">
+
+                <p>
+                    BeautyManager © 2026 · Sistema de gestión para emprendimientos
+                </p>
+
+            </footer>
+
+        </main>
+
+    </div>
+
+
+    <script
+        type="module"
+        src="js/configuracion.js">
+    </script>
+
+    <script src="js/tema.js"></script>
+
+</body>
+
+</html>

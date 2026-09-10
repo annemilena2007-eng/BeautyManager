@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Crear cuenta | BeautyManager</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <script>
+        const bmTema = localStorage.getItem("beautymanager-tema") || "morado";
+        document.documentElement.setAttribute("data-tema", bmTema);
+        if (localStorage.getItem("beautymanager-modo") === "oscuro") {
+            document.documentElement.classList.add("modo-oscuro");
+        }
+    </script>
+</head>
+
+<body class="register-page">
+
+    <main>
+        <h1>Crear cuenta</h1>
+
+        <form id="registroForm">
+
+            <label for="nombre">Nombre</label>
+            <input type="text" id="nombre" required>
+
+            <label for="negocio">Nombre del emprendimiento</label>
+            <input type="text" id="negocio" required>
+
+            <label for="correo">Correo electrónico</label>
+            <input type="email" id="correo" required>
+
+            <label for="password">Contraseña</label>
+            <input type="password" id="password" required>
+
+            <label for="confirmPassword">Confirmar contraseña</label>
+            <input type="password" id="confirmPassword" required>
+
+            <p id="mensaje"></p>
+
+            <button type="submit">Crear cuenta</button>
+
+        </form>
+
+        <p>
+            ¿Ya tienes una cuenta?
+            <a href="index.html">iniciar sesión</a>
+        </p>
+    
+    </main>
+
+    <script src="js/tema.js"></script>
+    <script type="module" src="js/auth.js"></script>
+</body>
+</html>
