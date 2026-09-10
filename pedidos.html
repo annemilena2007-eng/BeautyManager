@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Pedidos | BeautyManager</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <script>
+        const bmTema = localStorage.getItem("beautymanager-tema") || "morado";
+        document.documentElement.setAttribute("data-tema", bmTema);
+    </script>
+
+    <script>
+        if (localStorage.getItem("beautymanager-modo") === "oscuro") {
+            document.documentElement.classList.add("modo-oscuro");
+        }
+    </script>
+
+</head>
+
+<body>
+
+    <div class="app">
+
+        <aside class="sidebar">
+            <div class="logo">
+                BeautyManager
+            </div>
+
+            <nav>
+                <a href="dashboard.html" class="menu-item ">🏠 Inicio</a>
+                <a href="productos.html" class="menu-item ">📦 Productos</a>
+                <a href="clientes.html" class="menu-item ">👥 Clientes</a>
+                <a href="pedidos.html" class="menu-item active">🛍️ Pedidos</a>
+                <a href="ventas.html" class="menu-item ">💰 Ventas</a>
+                <a href="estadisticas.html" class="menu-item ">📊 Estadísticas</a>
+                <a href="configuracion.html" class="menu-item ">⚙️ Configuración</a>
+            </nav>
+
+            <div class="sidebar-bottom">
+                <button id="cerrarSesion" class="logout" type="button">🚪 Cerrar sesión</button>
+            </div>
+        </aside>
+
+
+        <main class="productos-page">
+
+        <!-- ENCABEZADO -->
+        <div class="pagina-header">
+
+            <div>
+                <h1>Mis pedidos 🛍️</h1>
+                <p>Administra y controla los pedidos de tu negocio.</p>
+            </div>
+
+            <button id="cerrarSesion" class="btn-secundario">
+                Cerrar sesión
+            </button>
+
+        </div>
+
+
+        <!-- CREAR PEDIDO -->
+        <section class="card">
+
+            <h2>Crear pedido</h2>
+
+            <form id="pedidoForm">
+
+                <div class="form-grid">
+
+                    <!-- CLIENTE -->
+                    <div class="form-group">
+
+                        <label for="clientePedido">
+                            Cliente
+                        </label>
+
+                        <select id="clientePedido" required>
+
+                            <option value="">
+                                Selecciona un cliente
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- PRODUCTO -->
+                    <div class="form-group">
+
+                        <label for="productoPedido">
+                            Producto
+                        </label>
+
+                        <select id="productoPedido" required>
+
+                            <option value="">
+                                Selecciona un producto
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- CANTIDAD -->
+                    <div class="form-group">
+
+                        <label for="cantidadPedido">
+                            Cantidad
+                        </label>
+
+                        <input
+                            type="number"
+                            id="cantidadPedido"
+                            min="1"
+                            value="1"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- ESTADO -->
+                    <div class="form-group">
+
+                        <label for="estadoPedido">
+                            Estado
+                        </label>
+
+                        <select id="estadoPedido">
+
+                            <option value="Pendiente">
+                                Pendiente
+                            </option>
+
+                            <option value="Procesando">
+                                Procesando
+                            </option>
+
+                            <option value="Enviado">
+                                Enviado
+                            </option>
+
+                            <option value="Entregado">
+                                Entregado
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <!-- TOTAL -->
+                <div class="total-pedido">
+
+                    <span>Total del pedido:</span>
+
+                    <strong id="totalPedido">
+                        $0
+                    </strong>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="btn-principal"
+                >
+                    + Crear pedido
+                </button>
+
+            </form>
+
+
+            <p id="pedidoMensaje"></p>
+
+        </section>
+
+
+        <!-- LISTA DE PEDIDOS -->
+        <section class="card">
+
+            <div class="lista-header">
+
+                <div>
+
+                    <h2>Mis pedidos</h2>
+
+                    <p>
+                        Consulta y administra los pedidos registrados.
+                    </p>
+
+                </div>
+
+
+                <input
+                    type="text"
+                    id="buscarPedido"
+                    class="buscador"
+                    placeholder="🔎 Buscar pedido..."
+                >
+
+            </div>
+
+
+            <!-- FILTRO POR ESTADO -->
+            <div class="filtros-pedidos">
+
+                <label for="filtroEstado">
+                    Filtrar por estado:
+                </label>
+
+                <select id="filtroEstado">
+
+                    <option value="Todos">
+                        Todos
+                    </option>
+
+                    <option value="Pendiente">
+                        Pendiente
+                    </option>
+
+                    <option value="Procesando">
+                        Procesando
+                    </option>
+
+                    <option value="Enviado">
+                        Enviado
+                    </option>
+
+                    <option value="Entregado">
+                        Entregado
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div id="listaPedidos">
+                Cargando pedidos...
+            </div>
+
+        </section>
+
+    </main>
+
+    </div>
+
+
+    <!-- MODAL EDITAR PEDIDO -->
+
+    <div
+        id="modalEditarPedido"
+        class="modal"
+        style="display: none;"
+    >
+
+        <div class="modal-contenido">
+
+            <div class="modal-header">
+
+                <h2>Editar pedido ✏️</h2>
+
+                <button
+                    id="cerrarModalPedido"
+                    class="cerrar-modal"
+                    type="button"
+                >
+                    ×
+                </button>
+
+            </div>
+
+
+            <form id="editarPedidoForm">
+
+                <input
+                    type="hidden"
+                    id="editarPedidoId"
+                >
+
+
+                <div class="form-group">
+
+                    <label for="editarEstadoPedido">
+                        Estado del pedido
+                    </label>
+
+                    <select id="editarEstadoPedido">
+
+                        <option value="Pendiente">
+                            Pendiente
+                        </option>
+
+                        <option value="Procesando">
+                            Procesando
+                        </option>
+
+                        <option value="Enviado">
+                            Enviado
+                        </option>
+
+                        <option value="Entregado">
+                            Entregado
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="modal-botones">
+
+                    <button
+                        type="button"
+                        id="cancelarEdicionPedido"
+                        class="btn-secundario"
+                    >
+                        Cancelar
+                    </button>
+
+                    <button
+                        type="submit"
+                        class="btn-principal"
+                    >
+                        Guardar cambios
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <script
+        type="module"
+        src="js/pedidos.js"
+    ></script>
+
+    <script src="js/tema.js"></script>
+
+</body>
+
+</html>

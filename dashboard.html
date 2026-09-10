@@ -1,0 +1,1516 @@
+```html
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard | BeautyManager</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <script>
+    const usuario =
+        localStorage.getItem("beautymanager-usuario");
+
+    const claveTema = usuario
+        ? `beautymanager-tema-${usuario}`
+        : "beautymanager-tema";
+
+    const claveModo = usuario
+        ? `beautymanager-modo-${usuario}`
+        : "beautymanager-modo";
+
+
+    const bmTema =
+        localStorage.getItem(claveTema) || "morado";
+
+    const bmModo =
+        localStorage.getItem(claveModo) || "claro";
+
+
+    document.documentElement.setAttribute(
+        "data-tema",
+        bmTema
+    );
+
+
+    if (bmModo === "oscuro") {
+
+        document.documentElement.classList.add(
+            "modo-oscuro"
+        );
+
+    } else {
+
+        document.documentElement.classList.remove(
+            "modo-oscuro"
+        );
+
+    }
+</script>
+
+</head>
+
+<body>
+
+    <div class="app">
+
+        <!-- ========================================= -->
+        <!-- MENÚ LATERAL -->
+        <!-- ========================================= -->
+
+        <aside class="sidebar">
+
+            <div class="logo">
+                BeautyManager
+            </div>
+
+            <nav>
+
+                <a
+                    href="dashboard.html"
+                    class="menu-item active"
+                >
+                    🏠 Inicio
+                </a>
+
+                <a
+                    href="productos.html"
+                    class="menu-item"
+                >
+                    📦 Productos
+                </a>
+
+                <a
+                    href="clientes.html"
+                    class="menu-item"
+                >
+                    👥 Clientes
+                </a>
+
+                <a
+                    href="pedidos.html"
+                    class="menu-item"
+                >
+                    🛍️ Pedidos
+                </a>
+
+                <a
+                    href="ventas.html"
+                    class="menu-item"
+                >
+                    💰 Ventas
+                </a>
+
+                <a
+                    href="estadisticas.html"
+                    class="menu-item"
+                >
+                    📊 Estadísticas
+                </a>
+
+                <a
+                    href="configuracion.html"
+                    class="menu-item"
+                >
+                    ⚙️ Configuración
+                </a>
+
+            </nav>
+
+            <div class="sidebar-bottom">
+
+                <button
+                    id="cerrarSesion"
+                    class="logout"
+                    type="button"
+                >
+                    🚪 Cerrar sesión
+                </button>
+
+            </div>
+
+        </aside>
+
+
+        <!-- ========================================= -->
+        <!-- CONTENIDO PRINCIPAL -->
+        <!-- ========================================= -->
+
+        <main class="main-content">
+
+
+            <!-- ===================================== -->
+            <!-- ENCABEZADO -->
+            <!-- ===================================== -->
+
+            <header class="topbar">
+
+                <div>
+
+                    <p class="small-text">
+                        Panel de gestión
+                    </p>
+
+                    <h1 id="saludo">
+                        Hola 👋
+                    </h1>
+
+                </div>
+
+                <div
+                    class="user-circle"
+                    id="usuarioInicial"
+                >
+                    U
+                </div>
+
+            </header>
+
+
+            <!-- ===================================== -->
+            <!-- BIENVENIDA -->
+            <!-- ===================================== -->
+
+            <section class="welcome">
+
+                <div>
+
+                    <h2 id="nombreNegocio">
+                        Bienvenida a BeautyManager 💗
+                    </h2>
+
+                    <p>
+                        Administra tu emprendimiento desde un solo lugar.
+                    </p>
+
+                </div>
+
+            </section>
+
+
+            <!-- ===================================== -->
+            <!-- TARJETAS PRINCIPALES -->
+            <!-- ===================================== -->
+
+            <section class="stats-grid">
+
+
+                <!-- VENTAS -->
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        💰
+                    </div>
+
+                    <div>
+
+                        <p>
+                            Ventas
+                        </p>
+
+                        <h3 id="totalVentas">
+                            $0
+                        </h3>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PEDIDOS -->
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        🛍️
+                    </div>
+
+                    <div>
+
+                        <p>
+                            Pedidos
+                        </p>
+
+                        <h3 id="totalPedidos">
+                            0
+                        </h3>
+
+                    </div>
+
+                </div>
+
+
+                <!-- CLIENTES -->
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        👥
+                    </div>
+
+                    <div>
+
+                        <p>
+                            Clientes
+                        </p>
+
+                        <h3 id="totalClientes">
+                            0
+                        </h3>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PRODUCTOS -->
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        📦
+                    </div>
+
+                    <div>
+
+                        <p>
+                            Productos
+                        </p>
+
+                        <h3 id="totalProductos">
+                            0
+                        </h3>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ===================================== -->
+            <!-- PEDIDOS + PRODUCTOS -->
+            <!-- ===================================== -->
+
+            <section class="dashboard-grid">
+
+
+                <!-- ================================= -->
+                <!-- PEDIDOS RECIENTES -->
+                <!-- ================================= -->
+
+                <div class="dashboard-card">
+
+                    <div class="card-header">
+
+                        <h2>
+                            Pedidos recientes
+                        </h2>
+
+                        <a href="pedidos.html">
+                            Ver todos
+                        </a>
+
+                    </div>
+
+
+                    <div id="pedidosRecientes">
+
+                        <div class="empty-state">
+
+                            <span>
+                                🛍️
+                            </span>
+
+                            <p>
+                                Cargando pedidos...
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ================================= -->
+                <!-- PRODUCTOS -->
+                <!-- ================================= -->
+
+                <div class="dashboard-card">
+
+                    <div class="card-header">
+
+                        <h2>
+                            Productos
+                        </h2>
+
+                        <a href="productos.html">
+                            Ver todos
+                        </a>
+
+                    </div>
+
+
+                    <div id="productosDashboard">
+
+                        <div class="empty-state">
+
+                            <span>
+                                📦
+                            </span>
+
+                            <p>
+                                Cargando productos...
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ===================================== -->
+            <!-- GRÁFICO -->
+            <!-- ===================================== -->
+
+            <section class="dashboard-card">
+
+                <div class="card-header">
+
+                    <div>
+
+                        <h2>
+                            Estadísticas de ventas
+                        </h2>
+
+                        <p class="small-text">
+                            Ventas de los últimos 7 días
+                        </p>
+
+                    </div>
+
+                    <a href="estadisticas.html">
+                        Ver estadísticas
+                    </a>
+
+                </div>
+
+
+                <div
+                    id="graficoVentas"
+                    class="grafico-barras"
+                >
+
+                </div>
+
+            </section>
+
+
+            <!-- ===================================== -->
+            <!-- PRODUCTOS MÁS VENDIDOS -->
+            <!-- ===================================== -->
+
+            <section class="dashboard-card">
+
+                <div class="card-header">
+
+                    <div>
+
+                        <h2>
+                            Productos más vendidos 🏆
+                        </h2>
+
+                        <p class="small-text">
+                            Basado en tus ventas registradas
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div id="productosMasVendidos">
+
+                    <div class="empty-state">
+
+                        <span>
+                            📊
+                        </span>
+
+                        <p>
+                            Cargando estadísticas...
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+        </main>
+
+    </div>
+
+
+    <!-- ========================================= -->
+    <!-- AUTH -->
+    <!-- ========================================= -->
+
+    <script type="module">
+
+        import {
+            createClient
+        } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
+
+
+        // =========================================
+        // CONEXIÓN
+        // =========================================
+
+        const SUPABASE_URL =
+            "https://hxxvtporroqbwgwojubo.supabase.co";
+
+        const SUPABASE_KEY =
+            "sb_publishable_GlZDWok98G3_cO5wLn-kuw_CGkGeXSQ";
+
+
+        const supabase =
+            createClient(
+                SUPABASE_URL,
+                SUPABASE_KEY
+            );
+
+
+        // =========================================
+        // ELEMENTOS
+        // =========================================
+
+        const saludo =
+            document.getElementById("saludo");
+
+        const nombreNegocio =
+            document.getElementById("nombreNegocio");
+
+        const usuarioInicial =
+            document.getElementById("usuarioInicial");
+
+        const totalVentas =
+            document.getElementById("totalVentas");
+
+        const totalPedidos =
+            document.getElementById("totalPedidos");
+
+        const totalClientes =
+            document.getElementById("totalClientes");
+
+        const totalProductos =
+            document.getElementById("totalProductos");
+
+        const pedidosRecientes =
+            document.getElementById("pedidosRecientes");
+
+        const productosDashboard =
+            document.getElementById("productosDashboard");
+
+        const productosMasVendidos =
+            document.getElementById("productosMasVendidos");
+
+        const graficoVentas =
+            document.getElementById("graficoVentas");
+
+        const cerrarSesion =
+            document.getElementById("cerrarSesion");
+
+
+        // =========================================
+        // COMPROBAR SESIÓN
+        // =========================================
+
+        const {
+            data: {
+                session
+            }
+        } = await supabase.auth.getSession();
+
+
+        if (!session) {
+
+            window.location.href =
+                "index.html";
+
+            throw new Error(
+                "No hay una sesión activa."
+            );
+        }
+
+
+        const user =
+            session.user;
+
+
+        // =========================================
+        // INFORMACIÓN DEL USUARIO
+        // =========================================
+
+        const nombre =
+            user.user_metadata?.nombre ||
+            "emprendedora";
+
+        const negocio =
+            user.user_metadata?.negocio ||
+            "Tu emprendimiento";
+
+
+        saludo.textContent =
+            `Hola, ${nombre} 👋`;
+
+
+        nombreNegocio.textContent =
+            `Bienvenida a ${negocio} 💗`;
+
+
+        usuarioInicial.textContent =
+            nombre
+                .charAt(0)
+                .toUpperCase();
+
+
+        // =========================================
+        // CERRAR SESIÓN
+        // =========================================
+
+        cerrarSesion.addEventListener(
+            "click",
+            async () => {
+
+                const {
+                    error
+                } =
+                    await supabase.auth.signOut();
+
+
+                if (error) {
+
+                    console.error(error);
+
+                    return;
+                }
+
+
+                window.location.href =
+                    "index.html";
+
+            }
+        );
+
+
+        // =========================================
+        // CARGAR DATOS DEL DASHBOARD
+        // =========================================
+
+        async function cargarDashboard() {
+
+            try {
+
+                // =================================
+                // CLIENTES
+                // =================================
+
+                const {
+                    data: clientes,
+                    error: errorClientes
+                } =
+                    await supabase
+                        .from("clientes")
+                        .select("id")
+                        .eq(
+                            "user_id",
+                            user.id
+                        );
+
+
+                if (errorClientes) {
+                    throw errorClientes;
+                }
+
+
+                totalClientes.textContent =
+                    clientes?.length || 0;
+
+
+                // =================================
+                // PRODUCTOS
+                // =================================
+
+                const {
+                    data: productos,
+                    error: errorProductos
+                } =
+                    await supabase
+                        .from("productos")
+                        .select(
+                            "id, nombre, categoria, precio, stock, created_at"
+                        )
+                        .eq(
+                            "user_id",
+                            user.id
+                        )
+                        .order(
+                            "created_at",
+                            {
+                                ascending: false
+                            }
+                        );
+
+
+                if (errorProductos) {
+                    throw errorProductos;
+                }
+
+
+                totalProductos.textContent =
+                    productos?.length || 0;
+
+
+                mostrarProductos(
+                    productos || []
+                );
+
+
+                // =================================
+                // PEDIDOS
+                // =================================
+
+                const {
+                    data: pedidos,
+                    error: errorPedidos
+                } =
+                    await supabase
+                        .from("pedidos")
+                        .select(`
+                            id,
+                            cliente_id,
+                            producto_id,
+                            cantidad,
+                            total,
+                            estado,
+                            created_at,
+                            clientes (
+                                nombre
+                            ),
+                            productos (
+                                nombre
+                            )
+                        `)
+                        .eq(
+                            "user_id",
+                            user.id
+                        )
+                        .order(
+                            "created_at",
+                            {
+                                ascending: false
+                            }
+                        );
+
+
+                if (errorPedidos) {
+                    throw errorPedidos;
+                }
+
+
+                totalPedidos.textContent =
+                    pedidos?.length || 0;
+
+
+                mostrarPedidos(
+                    pedidos || []
+                );
+
+
+                // =================================
+                // VENTAS
+                // =================================
+
+                const {
+                    data: ventas,
+                    error: errorVentas
+                } =
+                    await supabase
+                        .from("ventas")
+                        .select(`
+                            id,
+                            producto_id,
+                            cantidad,
+                            total,
+                            created_at,
+                            productos (
+                                nombre
+                            )
+                        `)
+                        .eq(
+                            "user_id",
+                            user.id
+                        )
+                        .order(
+                            "created_at",
+                            {
+                                ascending: false
+                            }
+                        );
+
+
+                if (errorVentas) {
+                    throw errorVentas;
+                }
+
+
+                calcularVentas(
+                    ventas || []
+                );
+
+
+                mostrarProductosMasVendidos(
+                    ventas || []
+                );
+
+
+                crearGrafico(
+                    ventas || []
+                );
+
+            } catch (error) {
+
+                console.error(
+                    "Error cargando dashboard:",
+                    error
+                );
+
+            }
+
+        }
+
+
+        // =========================================
+        // MOSTRAR PRODUCTOS
+        // =========================================
+
+        function mostrarProductos(
+            productos
+        ) {
+
+            if (
+                !productos ||
+                productos.length === 0
+            ) {
+
+                productosDashboard.innerHTML = `
+
+                    <div class="empty-state">
+
+                        <span>
+                            📦
+                        </span>
+
+                        <p>
+                            Aún no tienes productos registrados.
+                        </p>
+
+                        <a
+                            href="productos.html"
+                            class="primary-button"
+                        >
+                            + Agregar producto
+                        </a>
+
+                    </div>
+
+                `;
+
+                return;
+            }
+
+
+            const lista =
+                productos.slice(
+                    0,
+                    5
+                );
+
+
+            productosDashboard.innerHTML = "";
+
+
+            lista.forEach(
+                producto => {
+
+                    let estado =
+                        "Disponible";
+
+                    let clase =
+                        "stock-normal";
+
+
+                    if (
+                        Number(producto.stock) === 0
+                    ) {
+
+                        estado =
+                            "Agotado";
+
+                        clase =
+                            "stock-agotado";
+
+                    } else if (
+                        Number(producto.stock) <= 5
+                    ) {
+
+                        estado =
+                            "Stock bajo";
+
+                        clase =
+                            "stock-bajo";
+
+                    }
+
+
+                    const item =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    item.className =
+                        "producto-item";
+
+
+                    item.innerHTML = `
+
+                        <div class="producto-info">
+
+                            <h3>
+                                ${producto.nombre}
+                            </h3>
+
+                            <p>
+                                ${producto.categoria || "Sin categoría"}
+                            </p>
+
+                            <p>
+                                <strong>
+                                    $${Number(
+                                        producto.precio
+                                    ).toLocaleString("es-CO")}
+                                </strong>
+                            </p>
+
+                            <p>
+                                Stock:
+                                <strong>
+                                    ${producto.stock}
+                                </strong>
+
+                                <span class="${clase}">
+                                    ${estado}
+                                </span>
+                            </p>
+
+                        </div>
+
+                    `;
+
+
+                    productosDashboard.appendChild(
+                        item
+                    );
+
+                }
+            );
+
+        }
+
+
+        // =========================================
+        // MOSTRAR PEDIDOS
+        // =========================================
+
+        function mostrarPedidos(
+            pedidos
+        ) {
+
+            if (
+                !pedidos ||
+                pedidos.length === 0
+            ) {
+
+                pedidosRecientes.innerHTML = `
+
+                    <div class="empty-state">
+
+                        <span>
+                            🛍️
+                        </span>
+
+                        <p>
+                            Todavía no tienes pedidos.
+                        </p>
+
+                        <a
+                            href="pedidos.html"
+                            class="primary-button"
+                        >
+                            + Crear pedido
+                        </a>
+
+                    </div>
+
+                `;
+
+                return;
+            }
+
+
+            const lista =
+                pedidos.slice(
+                    0,
+                    5
+                );
+
+
+            pedidosRecientes.innerHTML = "";
+
+
+            lista.forEach(
+                pedido => {
+
+                    const cliente =
+                        pedido.clientes?.nombre ||
+                        "Cliente eliminado";
+
+
+                    const producto =
+                        pedido.productos?.nombre ||
+                        "Producto eliminado";
+
+
+                    const fecha =
+                        new Date(
+                            pedido.created_at
+                        ).toLocaleDateString(
+                            "es-CO"
+                        );
+
+
+                    let claseEstado =
+                        "estado-pendiente";
+
+
+                    if (
+                        pedido.estado ===
+                        "Procesando"
+                    ) {
+
+                        claseEstado =
+                            "estado-procesando";
+
+                    } else if (
+                        pedido.estado ===
+                        "Enviado"
+                    ) {
+
+                        claseEstado =
+                            "estado-enviado";
+
+                    } else if (
+                        pedido.estado ===
+                        "Entregado"
+                    ) {
+
+                        claseEstado =
+                            "estado-entregado";
+
+                    }
+
+
+                    const item =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    item.className =
+                        "producto-item";
+
+
+                    item.innerHTML = `
+
+                        <div class="producto-info">
+
+                            <h3>
+                                Pedido #${pedido.id}
+                            </h3>
+
+                            <p>
+                                👤
+                                <strong>
+                                    ${cliente}
+                                </strong>
+                            </p>
+
+                            <p>
+                                📦
+                                ${producto}
+                                × ${pedido.cantidad}
+                            </p>
+
+                            <p>
+                                💰
+                                <strong>
+                                    $${Number(
+                                        pedido.total
+                                    ).toLocaleString("es-CO")}
+                                </strong>
+                            </p>
+
+                            <p>
+                                📅 ${fecha}
+                            </p>
+
+                            <p>
+                                Estado:
+                                <span
+                                    class="${claseEstado}"
+                                >
+                                    ${pedido.estado}
+                                </span>
+                            </p>
+
+                        </div>
+
+                    `;
+
+
+                    pedidosRecientes.appendChild(
+                        item
+                    );
+
+                }
+            );
+
+        }
+
+
+        // =========================================
+        // TOTAL DE VENTAS
+        // =========================================
+
+        function calcularVentas(
+            ventas
+        ) {
+
+            const total =
+                ventas.reduce(
+                    (
+                        acumulado,
+                        venta
+                    ) =>
+                        acumulado +
+                        Number(
+                            venta.total
+                        ),
+                    0
+                );
+
+
+            totalVentas.textContent =
+                `$${total.toLocaleString(
+                    "es-CO"
+                )}`;
+
+        }
+
+
+        // =========================================
+        // PRODUCTOS MÁS VENDIDOS
+        // =========================================
+
+        function mostrarProductosMasVendidos(
+            ventas
+        ) {
+
+            if (
+                !ventas ||
+                ventas.length === 0
+            ) {
+
+                productosMasVendidos.innerHTML = `
+
+                    <div class="empty-state">
+
+                        <span>
+                            📊
+                        </span>
+
+                        <p>
+                            Las estadísticas aparecerán cuando registres ventas.
+                        </p>
+
+                    </div>
+
+                `;
+
+                return;
+            }
+
+
+            const ranking = {};
+
+
+            ventas.forEach(
+                venta => {
+
+                    const producto =
+                        venta.productos?.nombre ||
+                        "Producto eliminado";
+
+
+                    if (
+                        !ranking[producto]
+                    ) {
+
+                        ranking[producto] = 0;
+
+                    }
+
+
+                    ranking[producto] +=
+                        Number(
+                            venta.cantidad
+                        );
+
+                }
+            );
+
+
+            const ordenados =
+                Object.entries(
+                    ranking
+                )
+                .sort(
+                    (
+                        a,
+                        b
+                    ) =>
+                        b[1] - a[1]
+                )
+                .slice(
+                    0,
+                    5
+                );
+
+
+            productosMasVendidos.innerHTML = "";
+
+
+            ordenados.forEach(
+                (
+                    item,
+                    indice
+                ) => {
+
+                    const nombre =
+                        item[0];
+
+                    const cantidad =
+                        item[1];
+
+
+                    const fila =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    fila.className =
+                        "producto-item";
+
+
+                    fila.innerHTML = `
+
+                        <div class="producto-info">
+
+                            <h3>
+                                ${indice + 1}.
+                                ${nombre}
+                            </h3>
+
+                            <p>
+                                🛍️
+                                ${cantidad}
+                                unidad${cantidad === 1 ? "" : "es"} vendida${cantidad === 1 ? "" : "s"}
+                            </p>
+
+                        </div>
+
+                    `;
+
+
+                    productosMasVendidos.appendChild(
+                        fila
+                    );
+
+                }
+            );
+
+        }
+
+
+        // =========================================
+        // GRÁFICO DE LOS ÚLTIMOS 7 DÍAS
+        // =========================================
+
+        function crearGrafico(
+            ventas
+        ) {
+
+            graficoVentas.innerHTML = "";
+
+
+            const dias = [];
+
+
+            for (
+                let i = 6;
+                i >= 0;
+                i--
+            ) {
+
+                const fecha =
+                    new Date();
+
+
+                fecha.setHours(
+                    0,
+                    0,
+                    0,
+                    0
+                );
+
+
+                fecha.setDate(
+                    fecha.getDate() - i
+                );
+
+
+                dias.push(
+                    fecha
+                );
+
+            }
+
+
+            const valores =
+                dias.map(
+                    dia => {
+
+                        const inicio =
+                            new Date(
+                                dia
+                            );
+
+
+                        const fin =
+                            new Date(
+                                dia
+                            );
+
+
+                        fin.setDate(
+                            fin.getDate() + 1
+                        );
+
+
+                        return ventas
+                            .filter(
+                                venta => {
+
+                                    const fechaVenta =
+                                        new Date(
+                                            venta.created_at
+                                        );
+
+                                    return (
+                                        fechaVenta >=
+                                            inicio &&
+                                        fechaVenta <
+                                            fin
+                                    );
+
+                                }
+                            )
+                            .reduce(
+                                (
+                                    total,
+                                    venta
+                                ) =>
+                                    total +
+                                    Number(
+                                        venta.total
+                                    ),
+                                0
+                            );
+
+                    }
+                );
+
+
+            const maximo =
+                Math.max(
+                    ...valores,
+                    1
+                );
+
+
+            dias.forEach(
+                (
+                    dia,
+                    indice
+                ) => {
+
+                    const columna =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    columna.className =
+                        "grafico-columna";
+
+
+                    const valor =
+                        valores[indice];
+
+
+                    const altura =
+                        valor > 0
+                            ? Math.max(
+                                8,
+                                (
+                                    valor /
+                                    maximo
+                                ) * 100
+                            )
+                            : 4;
+
+
+                    const barra =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    barra.className =
+                        "grafico-barra";
+
+
+                    barra.style.height =
+                        `${altura}%`;
+
+
+                    const valorTexto =
+                        document.createElement(
+                            "span"
+                        );
+
+
+                    valorTexto.className =
+                        "grafico-valor";
+
+
+                    valorTexto.textContent =
+                        valor > 0
+                            ? `$${Number(
+                                valor
+                            ).toLocaleString(
+                                "es-CO"
+                            )}`
+                            : "$0";
+
+
+                    const etiqueta =
+                        document.createElement(
+                            "span"
+                        );
+
+
+                    etiqueta.className =
+                        "grafico-etiqueta";
+
+
+                    etiqueta.textContent =
+                        dia.toLocaleDateString(
+                            "es-CO",
+                            {
+                                weekday:
+                                    "short"
+                            }
+                        )
+                        .replace(
+                            ".",
+                            ""
+                        );
+
+
+                    columna.appendChild(
+                        valorTexto
+                    );
+
+
+                    columna.appendChild(
+                        barra
+                    );
+
+
+                    columna.appendChild(
+                        etiqueta
+                    );
+
+
+                    graficoVentas.appendChild(
+                        columna
+                    );
+
+                }
+            );
+
+        }
+
+
+        // =========================================
+        // INICIAR DASHBOARD
+        // =========================================
+
+        await cargarDashboard();
+
+    </script>
+
+
+    <!-- ========================================= -->
+    <!-- TEMA -->
+    <!-- ========================================= -->
+
+    <script src="js/tema.js"></script>
+
+</body>
+
+</html>
+```

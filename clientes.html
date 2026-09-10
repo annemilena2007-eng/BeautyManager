@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Clientes | BeautyManager</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <script>
+        const bmTema = localStorage.getItem("beautymanager-tema") || "morado";
+        document.documentElement.setAttribute("data-tema", bmTema);
+    </script>
+
+    <script>
+        if (localStorage.getItem("beautymanager-modo") === "oscuro") {
+            document.documentElement.classList.add("modo-oscuro");
+        }
+    </script>
+
+</head>
+
+<body>
+
+    <div class="app">
+
+        <aside class="sidebar">
+            <div class="logo">
+                BeautyManager
+            </div>
+
+            <nav>
+                <a href="dashboard.html" class="menu-item ">🏠 Inicio</a>
+                <a href="productos.html" class="menu-item ">📦 Productos</a>
+                <a href="clientes.html" class="menu-item active">👥 Clientes</a>
+                <a href="pedidos.html" class="menu-item ">🛍️ Pedidos</a>
+                <a href="ventas.html" class="menu-item ">💰 Ventas</a>
+                <a href="estadisticas.html" class="menu-item ">📊 Estadísticas</a>
+                <a href="configuracion.html" class="menu-item ">⚙️ Configuración</a>
+            </nav>
+
+            <div class="sidebar-bottom">
+                <button id="cerrarSesion" class="logout" type="button">🚪 Cerrar sesión</button>
+            </div>
+        </aside>
+
+
+        <main class="productos-page">
+
+        <!-- ENCABEZADO -->
+        <div class="pagina-header">
+
+            <div>
+                <h1>Mis clientes 👥</h1>
+                <p>Administra la información de tus clientes.</p>
+            </div>
+
+            <button id="cerrarSesion" class="btn-secundario">
+                Cerrar sesión
+            </button>
+
+        </div>
+
+
+        <!-- AGREGAR CLIENTE -->
+        <section class="card">
+
+            <h2>Agregar cliente</h2>
+
+            <form id="clienteForm">
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+
+                        <label for="nombreCliente">
+                            Nombre completo
+                        </label>
+
+                        <input
+                            type="text"
+                            id="nombreCliente"
+                            placeholder="Ej: María Pérez"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="telefonoCliente">
+                            Teléfono
+                        </label>
+
+                        <input
+                            type="tel"
+                            id="telefonoCliente"
+                            placeholder="Ej: 3001234567"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="correoCliente">
+                            Correo electrónico
+                        </label>
+
+                        <input
+                            type="email"
+                            id="correoCliente"
+                            placeholder="Ej: maria@email.com"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="direccionCliente">
+                            Dirección
+                        </label>
+
+                        <input
+                            type="text"
+                            id="direccionCliente"
+                            placeholder="Ej: Calle 50 #20-10"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="notasCliente">
+                        Notas
+                    </label>
+
+                    <textarea
+                        id="notasCliente"
+                        placeholder="Información adicional sobre el cliente..."
+                        rows="3"
+                    ></textarea>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="btn-principal"
+                >
+                    + Guardar cliente
+                </button>
+
+            </form>
+
+
+            <p id="clienteMensaje"></p>
+
+        </section>
+
+
+        <!-- LISTA DE CLIENTES -->
+        <section class="card">
+
+            <div class="lista-header">
+
+                <div>
+                    <h2>Mis clientes</h2>
+                    <p>Consulta y administra tus clientes.</p>
+                </div>
+
+                <input
+                    type="text"
+                    id="buscarCliente"
+                    class="buscador"
+                    placeholder="🔎 Buscar cliente..."
+                >
+
+            </div>
+
+
+            <div id="listaClientes">
+                Cargando clientes...
+            </div>
+
+        </section>
+
+    </main>
+
+    </div>
+
+
+    <!-- MODAL EDITAR CLIENTE -->
+    <div
+        id="modalEditarCliente"
+        class="modal"
+        style="display: none;"
+    >
+
+        <div class="modal-contenido">
+
+            <div class="modal-header">
+
+                <h2>Editar cliente ✏️</h2>
+
+                <button
+                    id="cerrarModalCliente"
+                    class="cerrar-modal"
+                    type="button"
+                >
+                    ×
+                </button>
+
+            </div>
+
+
+            <form id="editarClienteForm">
+
+                <input
+                    type="hidden"
+                    id="editarClienteId"
+                >
+
+
+                <div class="form-group">
+
+                    <label for="editarNombreCliente">
+                        Nombre completo
+                    </label>
+
+                    <input
+                        type="text"
+                        id="editarNombreCliente"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="editarTelefonoCliente">
+                        Teléfono
+                    </label>
+
+                    <input
+                        type="tel"
+                        id="editarTelefonoCliente"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="editarCorreoCliente">
+                        Correo electrónico
+                    </label>
+
+                    <input
+                        type="email"
+                        id="editarCorreoCliente"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="editarDireccionCliente">
+                        Dirección
+                    </label>
+
+                    <input
+                        type="text"
+                        id="editarDireccionCliente"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="editarNotasCliente">
+                        Notas
+                    </label>
+
+                    <textarea
+                        id="editarNotasCliente"
+                        rows="3"
+                    ></textarea>
+
+                </div>
+
+
+                <div class="modal-botones">
+
+                    <button
+                        type="button"
+                        id="cancelarEdicionCliente"
+                        class="btn-secundario"
+                    >
+                        Cancelar
+                    </button>
+
+                    <button
+                        type="submit"
+                        class="btn-principal"
+                    >
+                        Guardar cambios
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <script
+        type="module"
+        src="js/clientes.js"
+    ></script>
+
+    <script src="js/tema.js"></script>
+
+</body>
+
+</html>
